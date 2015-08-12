@@ -97,6 +97,11 @@
       transform: translateX(20px);
         -webkit-transform: translateX(20px);
     }
+
+    #toggleButton.dragging {
+      -webkit-transition: none;
+      transition: none;
+    }
   </style>
 
   <template>
@@ -138,6 +143,10 @@
       }
     },
 
+    listeners: {
+      track: '_ontrack'
+    },
+
     ready: function() {
       this._isReady = true;
     },
@@ -154,6 +163,40 @@
     _checkedChanged: function(checked) {
       this.active = this.checked;
       this.fire('iron-change');
+    },
+
+    _ontrack: function(event) {
+      var track = event.detail;
+      if (track.state === 'start') {
+        this._trackStart(track);
+      } else if (track.state === 'track') {
+        this._trackMove(track);
+      } else if (track.state === 'end') {
+        this._trackEnd(track);
+      }
+    },
+
+    _trackStart: function(track) {
+      var toggleBarWidth = this.$.toggleBar.offsetWidth;
+      var toggleButtonWidth = this.$.toggleButton.offsetWidth;
+      var toggleButtonMargin = this.$.toggleButton.offsetLeft * 2;
+      this._width = toggleBarWidth - toggleButtonWidth - toggleButtonMargin;
+      this._trackChecked = this.checked;
+      this.$.toggleButton.classList.add('dragging');
+    },
+
+    _trackMove: function(track) {
+      var dx = track.dx;
+      this._x = Math.min(this._width,
+          Math.max(0, this._trackChecked ? this._width + dx : dx));
+      this.translate3d(this._x + 'px', 0, 0, this.$.toggleButton);
+      this._userActivate(this._x > (this._width / 2));
+    },
+
+    _trackEnd: function(track) {
+      this.$.toggleButton.classList.remove('dragging');
+      this.transform('', this.$.toggleButton);
     }
+
   });
 </script>
