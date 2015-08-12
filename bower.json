@@ -1,0 +1,30 @@
+{
+  "name": "ios-toggle-button",
+  "version": "0.0.1",
+  "description": "iOS design toggle button control",
+  "authors": [
+    "Abdón Rodríguez Davila <thepeer@kingofapp.es>"
+  ],
+  "keywords": [
+    "web-components",
+    "web-component",
+    "polymer",
+    "ios",
+    "toggle",
+    "button",
+    "control"
+  ],
+  "main": "ios-toggle-button.html",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/KingofApp/ios-toggle-button"
+  },
+  "license": "MIT",
+  "dependencies": {
+    "polymer": "polymer/polymer#~1.0.9"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#~1.0.5",
+    "webcomponentsjs": "webcomponents/webcomponentsjs#~0.7.10"
+  }
+}
