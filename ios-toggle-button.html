@@ -1,116 +1,114 @@
 <link rel="import" href="../polymer/polymer.html">
-<link rel="import" href="../paper-behaviors/paper-inky-focus-behavior.html">
+<link rel="import" href="../iron-behaviors/iron-button-state.html">
 
 <dom-module id="ios-toggle-button">
-
-  <style>
-    :host {
-      display: inline-block;
-    }
-
-    :host([disabled]) {
-      pointer-events: none;
-      opacity: 0.55;
-    }
-
-    :host(:focus) {
-      outline: none;
-    }
-
-    #toggleContainer {
-      align-self: center;
-        -ms-flex-item-align: center;
-        -webkit-align-self: center;
-      border-radius: 16px;
-      box-sizing: border-box;
-      cursor: pointer;
-      display: inline-block;
-      height: 32px;
-      position: relative;
-      vertical-align: middle;
-      width: 52px;
-    }
-
-    #toggleBar {
-      appearance: none;
-        -moz-appearance: none;
-        -ms-appearance: none;
-        -webkit-appearance: none;
-      background: #e5e5e5;
-      border-radius: 16px;
-      border: none;
-      box-sizing: border-box;
-      cursor: pointer;
-      height: 32px;
-      margin: 0;
-      padding: 0;
-      position: relative;
-      transition-duration: 300ms;
-        -webkit-transition-duration: 300ms;
-      width: 52px;
-      z-index: 0;
-    }
-
-    #toggleBar:before {
-      background: #fff;
-      border-radius: 16px;
-      box-sizing: border-box;
-      content: ' ';
-      height: 28px;
-      left: 2px;
-      position: absolute;
-      top: 2px;
-      transform: scale(1);
-        -webkit-transform: scale(1);
-      transition-duration: 300ms;
-        -webkit-transition-duration: 300ms;
-      width: 48px;
-      z-index: 1;
-    }
-
-    #toggleButton {
-      background: #fff;
-      border-radius: 28px;
-      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-      height: 28px;
-      left: 2px;
-      position: absolute;
-      top: 2px;
-      transform: translateX(0px);
-        -webkit-transform: translateX(0px);
-      transition-duration: 300ms;
-        -webkit-transition-duration: 300ms;
-      width: 28px;
-      z-index: 2;
-    }
-
-    :host([checked]) #toggleBar {
-      background: var(--ios-toogle-button-color, --default-primary-color);
-    }
-
-    :host([checked]) #toggleBar:before {
-      transform: scale(0);
-        -webkit-transform: scale(0);
-    }
-
-    :host([checked]) #toggleButton {
-      transform: translateX(20px);
-        -webkit-transform: translateX(20px);
-    }
-
-    #toggleButton.dragging {
-      -webkit-transition: none;
-      transition: none;
-    }
-  </style>
-
   <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([disabled]) {
+        pointer-events: none;
+        opacity: 0.55;
+      }
+
+      :host(:focus) {
+        outline: none;
+      }
+
+      #toggleContainer {
+        align-self: center;
+          -ms-flex-item-align: center;
+          -webkit-align-self: center;
+        border-radius: 16px;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        height: 32px;
+        position: relative;
+        vertical-align: middle;
+        width: 52px;
+      }
+
+      #toggleBar {
+        appearance: none;
+          -moz-appearance: none;
+          -ms-appearance: none;
+          -webkit-appearance: none;
+        background: #e5e5e5;
+        border-radius: 16px;
+        border: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 52px;
+        z-index: 0;
+      }
+
+      #toggleBar:before {
+        background: #fff;
+        border-radius: 16px;
+        box-sizing: border-box;
+        content: ' ';
+        height: 28px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        transform: scale(1);
+          -webkit-transform: scale(1);
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 48px;
+        z-index: 1;
+      }
+
+      #toggleButton {
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        height: 28px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        transform: translateX(0px);
+          -webkit-transform: translateX(0px);
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 28px;
+        z-index: 2;
+      }
+
+      :host([checked]) #toggleBar {
+        background: var(--ios-toogle-button-color, --default-primary-color);
+      }
+
+      :host([checked]) #toggleBar:before {
+        transform: scale(0);
+          -webkit-transform: scale(0);
+      }
+
+      :host([checked]) #toggleButton {
+        transform: translateX(20px);
+          -webkit-transform: translateX(20px);
+      }
+
+      #toggleButton.dragging {
+        -webkit-transition: none;
+        transition: none;
+      }
+    </style>
+
     <div id="toggleContainer">
       <div id="toggleBar" class="toggle-bar"></div>
       <div id="toggleButton" class="toggle-button"></div>
     </div>
   </template>
-
 </dom-module>
 
 <script>
@@ -118,7 +116,7 @@
     is: 'ios-toggle-button',
 
     behaviors: [
-      Polymer.PaperInkyFocusBehavior
+      Polymer.IronButtonState
     ],
 
     hostAttributes: {
@@ -197,6 +195,5 @@
       this.$.toggleButton.classList.remove('dragging');
       this.transform('', this.$.toggleButton);
     }
-
   });
 </script>
