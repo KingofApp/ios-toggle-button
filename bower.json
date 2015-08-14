@@ -21,10 +21,10 @@
   },
   "license": "MIT",
   "dependencies": {
-    "polymer": "polymer/polymer#~1.0.9"
+    "polymer": "polymer/polymer#~1.1.0"
   },
   "devDependencies": {
     "iron-component-page": "PolymerElements/iron-component-page#~1.0.5",
-    "webcomponentsjs": "webcomponents/webcomponentsjs#~0.7.10"
+    "webcomponentsjs": "webcomponents/webcomponentsjs#~0.7.11"
   }
 }
