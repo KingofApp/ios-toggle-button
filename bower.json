@@ -1,6 +1,6 @@
 {
   "name": "ios-toggle-button",
-  "version": "0.2.2",
+  "version": "0.2.3",
   "description": "iOS design toggle button control",
   "authors": [
     "Abdón Rodríguez Davila <thepeer@kingofapp.es>"
@@ -27,6 +27,6 @@
   },
   "devDependencies": {
     "webcomponentsjs": "webcomponents/webcomponentsjs#^0.7.0",
-    "iron-component-page": "PolymerElements/iron-component-page#^1.0.5"
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0"
   }
 }
