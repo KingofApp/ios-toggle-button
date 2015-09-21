@@ -15,48 +15,99 @@ This code may only be used under the MIT license.
 
   <script src="../../webcomponentsjs/webcomponents-lite.js"></script>
 
+  <link rel="import" href="../../paper-styles/demo-pages.html">
   <link rel="import" href="../ios-toggle-button.html">
 
   <style is="custom-style">
-    ios-toggle-button.red {
-      --ios-toogle-button-color: red;
-    }
-    ios-toggle-button.blue {
-      --ios-toogle-button-color: blue;
+    .line {
+      margin-bottom: 40px;
     }
 
-    /* Create a ios-styles web component for these styles */
-    h4 {
-      color: #6d6d72;
-      font-weight: normal;
-      margin: 0 0 1em;
-      text-transform: uppercase;
+    .line span {
+      margin-left: 24px;
     }
-    .horizontal-section-container {
-      margin-bottom: 2em;
+
+    ios-toggle-button.blue {
+      --ios-toogle-button-color: var(--paper-blue-500);
     }
-    .line {
-      margin-bottom: 1em;
+
+    ios-toggle-button.red {
+      --ios-toogle-button-color: var(--paper-red-500);
+    }
+
+    ios-toggle-button.green {
+      --ios-toogle-button-color: var(--paper-green-500);
+    }
+
+    ios-toggle-button.orange {
+      --ios-toogle-button-color: var(--paper-orange-500);
     }
   </style>
 </head>
-<body>
+<body unresolved>
   <div class="horizontal-section-container">
-    <h4>Enabled</h4>
-    <div class="line"><ios-toggle-button></ios-toggle-button></div>
-    <div class="line"><ios-toggle-button checked></ios-toggle-button></div>
-  </div>
+    <div>
+      <h4>Enabled</h4>
+      <div class="horizontal-section">
+        <div class="line">
+          <ios-toggle-button></ios-toggle-button><span>Oxygen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button></ios-toggle-button><span>Carbon</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked></ios-toggle-button><span>Hydrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked></ios-toggle-button><span>Nitrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked></ios-toggle-button><span>Calcium</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="horizontal-section-container">
-    <h4>Disabled</h4>
-    <div class="line"><ios-toggle-button disabled></ios-toggle-button></div>
-    <div class="line"><ios-toggle-button checked disabled></ios-toggle-button></div>
-  </div>
+    <div>
+      <h4>Disabled</h4>
+      <div class="horizontal-section">
+        <div class="line">
+          <ios-toggle-button disabled></ios-toggle-button><span>Oxygen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button disabled></ios-toggle-button><span>Carbon</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked disabled></ios-toggle-button><span>Hydrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked disabled></ios-toggle-button><span>Nitrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked disabled></ios-toggle-button><span>Calcium</span>
+        </div>
+      </div>
+    </div>
 
-  <div class="horizontal-section-container">
-    <h4>Color</h4>
-    <div class="line"><ios-toggle-button checked class="red"></ios-toggle-button></div>
-    <div class="line"><ios-toggle-button checked class="blue"></ios-toggle-button></div>
+    <div>
+      <h4>Color</h4>
+      <div class="horizontal-section">
+        <div class="line">
+          <ios-toggle-button class="blue"></ios-toggle-button><span>Oxygen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button class="red"></ios-toggle-button><span>Carbon</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked class="orange"></ios-toggle-button><span>Hydrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked class="green"></ios-toggle-button><span>Nitrogen</span>
+        </div>
+        <div class="line">
+          <ios-toggle-button checked class="blue"></ios-toggle-button><span>Calcium</span>
+        </div>
+      </div>
+    </div>
   </div>
 </body>
 </html>
