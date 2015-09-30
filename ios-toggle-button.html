@@ -24,6 +24,10 @@ The following custom properties and mixins are available for styling:
 Custom property | Description | Default
 ----------------|-------------|----------
 `--ios-toogle-button-color` | Button color when the input is checked | `--default-primary-color`
+`--ios-toggle-button-unchecked-bar` | Mixin applied to the slider when the input is not checked | `{}`
+`--ios-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
+`--ios-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
+`--ios-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
 
 @group iOS Elements
 @element ios-toggle-button
@@ -32,7 +36,6 @@ Custom property | Description | Default
 
 <dom-module id="ios-toggle-button">
   <template>
-
     <style>
       :host {
         display: inline-block;
@@ -40,28 +43,13 @@ Custom property | Description | Default
 
       :host([disabled]) {
         pointer-events: none;
-        opacity: 0.55;
       }
 
       :host(:focus) {
-        outline: none;
+        outline:none;
       }
 
-      #toggleContainer {
-        align-self: center;
-          -ms-flex-item-align: center;
-          -webkit-align-self: center;
-        border-radius: 16px;
-        box-sizing: border-box;
-        cursor: pointer;
-        display: inline-block;
-        height: 32px;
-        position: relative;
-        vertical-align: middle;
-        width: 52px;
-      }
-
-      #toggleBar {
+      .toggle-bar {
         appearance: none;
           -moz-appearance: none;
           -ms-appearance: none;
@@ -79,9 +67,29 @@ Custom property | Description | Default
           -webkit-transition-duration: 300ms;
         width: 52px;
         z-index: 0;
+
+        @apply(--ios-toggle-button-unchecked-bar);
       }
 
-      #toggleBar:before {
+      .toggle-button {
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        height: 28px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        transform: translateX(0px);
+          -webkit-transform: translateX(0px);
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 28px;
+        z-index: 2;
+
+        @apply(--ios-toggle-button-unchecked-button);
+      }
+
+      .toggle-bar:before {
         background: #fff;
         border-radius: 16px;
         box-sizing: border-box;
@@ -98,47 +106,49 @@ Custom property | Description | Default
         z-index: 1;
       }
 
-      #toggleButton {
-        background: #fff;
-        border-radius: 28px;
-        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
-        height: 28px;
-        left: 2px;
-        position: absolute;
-        top: 2px;
-        transform: translateX(0px);
-          -webkit-transform: translateX(0px);
-        transition-duration: 300ms;
-          -webkit-transition-duration: 300ms;
-        width: 28px;
-        z-index: 2;
+      .toggle-button.dragging {
+        -webkit-transition: none;
+        transition: none;
       }
 
-      :host([checked]) #toggleBar {
-        background: var(--ios-toogle-button-color, --default-primary-color);
-      }
-
-      :host([checked]) #toggleBar:before {
+      :host([checked]) .toggle-bar:before {
         transform: scale(0);
           -webkit-transform: scale(0);
       }
 
-      :host([checked]) #toggleButton {
+      :host([checked]):not([disabled]) .toggle-bar {
+        background-color: var(--ios-toogle-button-color, --default-primary-color);
+        @apply(--ios-toggle-button-checked-bar);
+      }
+
+      :host([checked]):not([disabled]) .toggle-button {
+        @apply(--ios-toggle-button-checked-button);
+      }
+
+      :host([checked]) .toggle-button {
         transform: translateX(20px);
           -webkit-transform: translateX(20px);
       }
 
-      #toggleButton.dragging {
-        -webkit-transition: none;
-        transition: none;
+      .toggle-container {
+        align-self: center;
+          -ms-flex-item-align: center;
+          -webkit-align-self: center;
+        border-radius: 16px;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        height: 32px;
+        position: relative;
+        vertical-align: middle;
+        width: 52px;
       }
     </style>
 
-    <div id="toggleContainer">
+    <div class="toggle-container">
       <div id="toggleBar" class="toggle-bar"></div>
       <div id="toggleButton" class="toggle-button"></div>
     </div>
-
   </template>
 
   <script>
