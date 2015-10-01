@@ -28,6 +28,7 @@ Custom property | Description | Default
 `--ios-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
 `--ios-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
 `--ios-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
+`--ios-toggle-button-label-color` | Label color | `--primary-text-color`
 
 @group iOS Elements
 @element ios-toggle-button
@@ -116,12 +117,12 @@ Custom property | Description | Default
           -webkit-transform: scale(0);
       }
 
-      :host([checked]):not([disabled]) .toggle-bar {
+      :host([checked]:not([disabled])) .toggle-bar {
         background-color: var(--ios-toogle-button-color, --default-primary-color);
         @apply(--ios-toggle-button-checked-bar);
       }
 
-      :host([checked]):not([disabled]) .toggle-button {
+      :host([checked]:not([disabled])) .toggle-button {
         @apply(--ios-toggle-button-checked-button);
       }
 
@@ -143,11 +144,26 @@ Custom property | Description | Default
         vertical-align: middle;
         width: 52px;
       }
+
+      .toggle-label {
+        color: var(--ios-toggle-button-label-color, --primary-text-color);
+        display: inline-block;
+        margin-left: 10px;
+        pointer-events: none;
+        position: relative;
+        top: -2px;
+        vertical-align: middle;
+        white-space: normal;
+      }
     </style>
 
     <div class="toggle-container">
       <div id="toggleBar" class="toggle-bar"></div>
       <div id="toggleButton" class="toggle-button"></div>
+    </div>
+
+    <div class="toggle-label">
+      <content></content>
     </div>
   </template>
 
