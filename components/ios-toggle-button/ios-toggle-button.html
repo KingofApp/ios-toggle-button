@@ -1,0 +1,236 @@
+<!--
+@license
+Copyright (c) 2015 Team King of App. All rights reserved.
+This code may only be used under the MIT license.
+-->
+
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../ios-styles/ios-styles.html">
+<link rel="import" href="../iron-behaviors/iron-button-state.html">
+<link rel="import" href="../iron-checked-element-behavior/iron-checked-element-behavior.html">
+
+<!--
+`ios-toggle-button` provides a ON/OFF switch that user can toggle the state
+by tapping or by dragging the switch.
+
+Example:
+
+    <ios-toggle-button></ios-toggle-button>
+
+### Styling
+
+The following custom properties and mixins are available for styling:
+
+Custom property | Description | Default
+----------------|-------------|----------
+`--ios-toogle-button-color` | Button color when the input is checked | `--default-primary-color`
+`--ios-toggle-button-unchecked-bar` | Mixin applied to the slider when the input is not checked | `{}`
+`--ios-toggle-button-unchecked-button` | Mixin applied to the slider button when the input is not checked | `{}`
+`--ios-toggle-button-checked-bar` | Mixin applied to the slider when the input is checked | `{}`
+`--ios-toggle-button-checked-button` | Mixin applied to the slider button when the input is checked | `{}`
+`--ios-toggle-button-label-color` | Label color | `--primary-text-color`
+
+@group iOS Elements
+@element ios-toggle-button
+@demo demo/index.html
+-->
+
+<dom-module id="ios-toggle-button">
+  <template>
+    <style>
+      :host {
+        display: inline-block;
+      }
+
+      :host([disabled]) {
+        pointer-events: none;
+      }
+
+      :host(:focus) {
+        outline:none;
+      }
+
+      .toggle-bar {
+        appearance: none;
+          -moz-appearance: none;
+          -ms-appearance: none;
+          -webkit-appearance: none;
+        background: #e5e5e5;
+        border-radius: 16px;
+        border: none;
+        box-sizing: border-box;
+        cursor: pointer;
+        height: 32px;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 52px;
+        z-index: 0;
+
+        @apply(--ios-toggle-button-unchecked-bar);
+      }
+
+      .toggle-button {
+        background: #fff;
+        border-radius: 28px;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.4);
+        height: 28px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        transform: translateX(0px);
+          -webkit-transform: translateX(0px);
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 28px;
+        z-index: 2;
+
+        @apply(--ios-toggle-button-unchecked-button);
+      }
+
+      .toggle-bar:before {
+        background: #fff;
+        border-radius: 16px;
+        box-sizing: border-box;
+        content: ' ';
+        height: 28px;
+        left: 2px;
+        position: absolute;
+        top: 2px;
+        transform: scale(1);
+          -webkit-transform: scale(1);
+        transition-duration: 300ms;
+          -webkit-transition-duration: 300ms;
+        width: 48px;
+        z-index: 1;
+      }
+
+      .toggle-button.dragging {
+        -webkit-transition: none;
+        transition: none;
+      }
+
+      :host([checked]) .toggle-bar:before {
+        transform: scale(0);
+          -webkit-transform: scale(0);
+      }
+
+      :host([checked]:not([disabled])) .toggle-bar {
+        background-color: var(--ios-toogle-button-color, --default-primary-color);
+        @apply(--ios-toggle-button-checked-bar);
+      }
+
+      :host([checked]:not([disabled])) .toggle-button {
+        @apply(--ios-toggle-button-checked-button);
+      }
+
+      :host([checked]) .toggle-button {
+        transform: translateX(20px);
+          -webkit-transform: translateX(20px);
+      }
+
+      .toggle-container {
+        align-self: center;
+          -ms-flex-item-align: center;
+          -webkit-align-self: center;
+        border-radius: 16px;
+        box-sizing: border-box;
+        cursor: pointer;
+        display: inline-block;
+        height: 32px;
+        position: relative;
+        vertical-align: middle;
+        width: 52px;
+      }
+
+      .toggle-label {
+        color: var(--ios-toggle-button-label-color, --primary-text-color);
+        display: inline-block;
+        margin-left: 10px;
+        pointer-events: none;
+        position: relative;
+        top: -2px;
+        vertical-align: middle;
+        white-space: normal;
+      }
+    </style>
+
+    <div class="toggle-container">
+      <div id="toggleBar" class="toggle-bar"></div>
+      <div id="toggleButton" class="toggle-button"></div>
+    </div>
+
+    <div class="toggle-label">
+      <content></content>
+    </div>
+  </template>
+
+  <script>
+    Polymer({
+      is: 'ios-toggle-button',
+
+      behaviors: [
+        Polymer.IronButtonState,
+        Polymer.IronCheckedElementBehavior
+      ],
+
+      hostAttributes: {
+        role: 'button',
+        'aria-pressed': 'false',
+        tabindex: 0
+      },
+
+      listeners: {
+        track: '_ontrack'
+      },
+
+      ready: function() {
+        this._isReady = true;
+      },
+
+      _buttonStateChanged: function() {
+        if (this.disabled) {
+          return;
+        }
+        if (this._isReady) {
+          this.checked = this.active;
+        }
+      },
+
+      _ontrack: function(event) {
+        var track = event.detail;
+        if (track.state === 'start') {
+          this._trackStart(track);
+        } else if (track.state === 'track') {
+          this._trackMove(track);
+        } else if (track.state === 'end') {
+          this._trackEnd(track);
+        }
+      },
+
+      _trackStart: function(track) {
+        var toggleBarWidth = this.$.toggleBar.offsetWidth;
+        var toggleButtonWidth = this.$.toggleButton.offsetWidth;
+        var toggleButtonMargin = this.$.toggleButton.offsetLeft * 2;
+        this._width = toggleBarWidth - toggleButtonWidth - toggleButtonMargin;
+        this._trackChecked = this.checked;
+        this.$.toggleButton.classList.add('dragging');
+      },
+
+      _trackMove: function(track) {
+        var dx = track.dx;
+        this._x = Math.min(this._width,
+            Math.max(0, this._trackChecked ? this._width + dx : dx));
+        this.translate3d(this._x + 'px', 0, 0, this.$.toggleButton);
+        this._userActivate(this._x > (this._width / 2));
+      },
+
+      _trackEnd: function(track) {
+        this.$.toggleButton.classList.remove('dragging');
+        this.transform('', this.$.toggleButton);
+      }
+    });
+  </script>
+</dom-module>
